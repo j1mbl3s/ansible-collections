@@ -1,0 +1,13 @@
+---
+argument_specs:
+  main:
+    short_description: Updates the host's package manager cache with time-based invalidation.
+    author: Jaime Jackson-Block
+    options:
+      package_update_cache_valid_time:
+        type: int
+        default: 86400
+        description: |-
+          Number of seconds that the cache is valid for, after which it should be updated.
+          The default is 1 day.
+...
