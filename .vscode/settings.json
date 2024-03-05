@@ -1,0 +1,7 @@
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json": [
+      "j1mbl3s/*/roles/*/tasks/**/*.yaml"
+    ]
+  }
+}
