@@ -1,0 +1,33 @@
+---
+- name: APT | Initialize state lists
+  ansible.builtin.set_fact:
+    tools_state:
+      absent: []
+      build-dep: []
+      latest: []
+      present: []
+      fixed: []
+
+- name: APT | Sort packages to state lists
+  with_items:
+    - name: htop{{ tools_htop_version | default(None) }}
+      state: "{{ tools_htop_state }}"
+    - name: rsync{{ tools_rsync_version | default(None) }}
+      state: "{{ tools_rsync_state }}"
+    - name: tmux{{ tools_tmux_version | default(None) }}
+      state: "{{ tools_tmux_state }}"
+  ansible.builtin.set_fact:
+    tools_state: "{{
+        tools_state | ansible.builtin.combine({
+          item.state: [ item.name ]
+        }, list_merge='append')
+      }}"
+
+- name: APT | Configure apt state for packages
+  with_dict: "{{ tools_state }}"
+  when: item.value | length > 0
+  become: true
+  ansible.builtin.apt:
+    state: "{{ item.key }}"
+    name: "{{ item.value }}"
+...

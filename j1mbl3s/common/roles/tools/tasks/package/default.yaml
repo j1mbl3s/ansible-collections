@@ -1,0 +1,5 @@
+---
+- name: Default | Fail
+  ansible.builtin.fail:
+    msg: No tasks defined for package manager "{{ ansible_facts.pkg_mgr }}"
+...
