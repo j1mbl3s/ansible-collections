@@ -1,0 +1,6 @@
+---
+chrony_state: present
+# chrony_version:
+
+# chrony_conf_src:
+...
