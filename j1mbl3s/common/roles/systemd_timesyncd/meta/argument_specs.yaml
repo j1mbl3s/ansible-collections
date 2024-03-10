@@ -1,0 +1,51 @@
+---
+argument_specs:
+  main:
+    short_description: Configures systemd-timesyncd as the host's NTP client daemon.
+    author: Jaime Jackson-Block
+    options:
+      systemd_timesyncd_state:
+        type: str
+        choices:
+          - absent
+          - build-dep
+          - latest
+          - present
+          - fixed
+        default: present
+        description: State of the systemd-timesyncd package.
+      systemd_timesyncd_version:
+        type: str
+        description: Version specifier of the systemd-timesyncd package.
+      
+      systemd_timesyncd_ntp:
+        type: str
+        description: |-
+          NTP servers; see `man timesyncd.conf`.
+          A value starting with any whitespace and "#" will be commented in the config file.
+          An empty value will be ommitted from the config file.
+      systemd_timesyncd_fallback_ntp:
+        type: str
+        description: |-
+          Fallback NTP servers; see `man timesyncd.conf`.
+          A value starting with any whitespace and "#" will be commented in the config file.
+          An empty value will be ommitted from the config file.
+      systemd_timesyncd_root_distance_max_sec:
+        type: str
+        description: |-
+          Root distance maximum seconds; see `man timesyncd.conf`.
+          A value starting with any whitespace and "#" will be commented in the config file.
+          An empty value will be ommitted from the config file.
+      systemd_timesyncd_poll_interval_min_sec:
+        type: str
+        description: |-
+          Poll interval minimum seconds; see `man timesyncd.conf`.
+          A value starting with any whitespace and "#" will be commented in the config file.
+          An empty value will be ommitted from the config file.
+      systemd_timesyncd_poll_interval_max_sec:
+        type: str
+        description: |-
+          Poll interval maximum seconds; see `man timesycd.conf`.
+          A value starting with any whitespace and "#" will be commented in the config file.
+          An empty value will be ommitted from the config file.
+...

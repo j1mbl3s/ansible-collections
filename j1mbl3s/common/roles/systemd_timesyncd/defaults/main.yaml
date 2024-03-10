@@ -1,0 +1,10 @@
+---
+systemd_timesyncd_state: present
+# systemd_timesyncd_version:
+
+# systemd_timesyncd_ntp:
+# systemd_timesyncd_fallback_ntp:
+# systemd_timesyncd_root_distance_max_sec:
+# systemd_timesyncd_poll_interval_min_sec:
+# systemd_timesyncd_poll_interval_max_sec:
+...

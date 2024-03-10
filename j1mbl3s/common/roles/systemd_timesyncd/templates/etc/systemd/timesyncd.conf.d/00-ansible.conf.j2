@@ -1,0 +1,15 @@
+# ANSIBLE MANAGED FILE
+# ROLE: j1mbl3s.common.systemd_timesyncd
+
+[Time]
+{% for key, value in {
+        "NTP": systemd_timesyncd_ntp,
+        "FallbackNTP": systemd_timesyncd_fallback_ntp,
+        "RootDistanceMaxSec": systemd_timesyncd_root_distance_max_sec,
+        "PollIntervalMinSec": systemd_timesyncd_poll_interval_min_sec,
+        "PollIntervalMaxSec": systemd_timesyncd_poll_interval_max_sec
+    } | items %}
+{% if value | default(None) != None and value | length > 0 %}
+{% if value | regex_search("^\\s*#") %}#{% endif %}{{ key }}={{ value | regex_replace("^\\s*#\\s*", "") }}
+{% endif %}
+{% endfor %}

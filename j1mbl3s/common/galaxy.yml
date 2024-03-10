@@ -37,8 +37,14 @@ license:
 tags:
   - common
   - linux
+
   - tools
-  - debian
+
+  - systemd_timesyncd
+  - timesyncd
+  - systemd
+  - ntp
+  - time
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range
@@ -47,7 +53,7 @@ tags:
 # dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/j1mbl3s/personal-ansible-collections#/j1mbl3s/common
+repository: https://github.com/j1mbl3s/ansible-collections#/j1mbl3s/common
 
 # The URL to any online docs
 # documentation: http://docs.example.com
