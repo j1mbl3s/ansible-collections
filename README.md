@@ -1,11 +1,12 @@
-# ansible-collections
+# j1mbl3s/ansible-collections
 
-A collection of `ansible-galaxy`... collections.
+My personal collection of `ansible-galaxy`... collections.
+
 Pretty much just a bunch of roles.
-
 I use them to manage machines on my personal network.
 
-They're probably not production ready or something. idk.
+This probably not production ready or something, idk.
+Use at your own risk.
 
 ## Installation
 
@@ -37,7 +38,7 @@ Assuming you have cloned this repository to `../ansible-collections`:
     ansible-galaxy install -r requirements.yaml
     ```
 
-    Use the `-f` flag to force reinstallation without version updates.
+    Use the `-f` option to force reinstallation without an updated `galaxy.yml` version, e.g. for development updates.
 
 ### From GitHub
 
