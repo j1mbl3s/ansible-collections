@@ -1,6 +1,12 @@
 {
   "yaml.schemas": {
-    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json": [
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/meta.json": [
+      "j1mbl3s/*/roles/*/meta/main.yaml"
+    ],
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/role-arg-spec.json": [
+      "j1mbl3s/*/roles/*/meta/argument_specs.yaml"
+    ],
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/tasks.json": [
       "j1mbl3s/*/roles/*/tasks/**/*.yaml"
     ]
   }
