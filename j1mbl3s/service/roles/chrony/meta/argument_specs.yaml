@@ -4,21 +4,10 @@ argument_specs:
     short_description: Runs chrony as a host service.
     author: Jaime Jackson-Block
     options:
-      chrony_state:
-        type: str
-        choices:
-          - absent
-          - build-dep
-          - latest
-          - present
-          - fixed
-        default: present
-        description: |-
-          State of the chrony apt package.
       chrony_version:
         type: str
         description: |-
-          Version specifier of the chrony apt package.
+          Version specifier of the chrony package.
 
       chrony_conf_src:
         type: path

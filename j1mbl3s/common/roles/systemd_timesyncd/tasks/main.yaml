@@ -1,16 +1,8 @@
 ---
-- name: Choose tasks by package manager
-  with_first_found:
-    - files:
-        - "{{ ansible_facts.pkg_mgr }}.yaml"
-        - default.yaml
-      paths:
-        - package
-  loop_control:
-    loop_var: pkg
-  ansible.builtin.include_tasks: "{{ pkg }}"
+- name: Main | Include package/main.yaml tasks
+  ansible.builtin.include_tasks: package/main.yaml
 
-- name: Ensure /etc/systemd/timesyncd.conf.d directory exists
+- name: Main | Create /etc/systemd/timesyncd.conf.d directory
   become: true
   ansible.builtin.file:
     path: /etc/systemd/timesyncd.conf.d
@@ -19,7 +11,7 @@
     group: root
     mode: "0755"
 
-- name: Template /etc/systemd/timesyncd.conf.d/00-ansible.conf
+- name: Main | Template /etc/systemd/timesyncd.conf.d/00-ansible.conf
   become: true
   ansible.builtin.template:
     src: etc/systemd/timesyncd.conf.d/00-ansible.conf.j2

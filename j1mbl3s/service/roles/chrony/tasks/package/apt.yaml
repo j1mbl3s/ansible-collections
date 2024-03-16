@@ -1,7 +1,7 @@
 ---
-- name: APT | Configure chrony package state
+- name: Package | APT | Install chrony
   become: true
   ansible.builtin.apt:
-    state: "{{ chrony_state }}"
+    state: present
     name: chrony{{ chrony_version | default(None) }}
 ...

@@ -4,49 +4,14 @@ argument_specs:
     short_description: Manages installation of common tools for hosts.
     author: Jaime Jackson-Block
     options:
-      tools_htop_state:
-        type: str
-        choices:
-          - absent
-          - build-dep
-          - latest
-          - present
-          - fixed
-        default: present
-        description: |-
-          State of the htop package.
       tools_htop_version:
         type: str
         description: |-
           Version specifier of the htop package.
-
-      tools_rsync_state:
-        type: str
-        choices:
-          - absent
-          - build-dep
-          - latest
-          - present
-          - fixed
-        default: present
-        description: |-
-          State of the rsync package.
       tools_rsync_version:
         type: str
         description: |-
           Version specifier of the rsync package.
-
-      tools_tmux_state:
-        type: str
-        choices:
-          - absent
-          - build-dep
-          - latest
-          - present
-          - fixed
-        default: present
-        description: |-
-          State of the tmux package.
       tools_tmux_version:
         type: str
         description: |-

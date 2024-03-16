@@ -1,10 +1,5 @@
 ---
-tools_htop_state: present
 # tools_htop_version:
-
-tools_rsync_state: present
 # tools_rsync_version:
-
-tools_tmux_state: present
 # tools_tmux_version:
 ...

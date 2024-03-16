@@ -1,12 +1,4 @@
 ---
-- name: Choose tasks by package manager
-  with_first_found:
-    - files:
-        - "{{ ansible_facts.pkg_mgr }}.yaml"
-        - default.yaml
-      paths:
-        - package
-  loop_control:
-    loop_var: pkg
-  ansible.builtin.include_tasks: "{{ pkg }}"
+- name: Main | Include package/main.yaml tasks
+  ansible.builtin.include_tasks: package/main.yaml
 ...

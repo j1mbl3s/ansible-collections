@@ -1,7 +1,7 @@
 ---
-- name: APT | Configure systemd-timesyncd package state
+- name: Package | APT | Install systemd-timesyncd
   become: true
   ansible.builtin.apt:
-    state: "{{ systemd_timesyncd_state }}"
+    state: present
     name: systemd-timesyncd{{ systemd_timesyncd_version | default(None) }}
 ...

@@ -1,5 +1,4 @@
 ---
-systemd_timesyncd_state: present
 # systemd_timesyncd_version:
 
 # systemd_timesyncd_ntp:

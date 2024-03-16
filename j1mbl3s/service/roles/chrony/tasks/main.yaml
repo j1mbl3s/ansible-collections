@@ -1,16 +1,8 @@
 ---
-- name: Choose tasks by package manager
-  with_first_found:
-    - files:
-        - "{{ ansible_facts.pkg_mgr }}.yaml"
-        - default.yaml
-      paths:
-        - package
-  loop_control:
-    loop_var: pkg
-  ansible.builtin.include_tasks: "{{ pkg }}"
+- name: Main | Include package/main.yaml tasks
+  ansible.builtin.include_tasks: package/main.yaml
 
-- name: Template chrony.conf file
+- name: Main | Template chrony.conf file
   when: chrony_conf_src | default(None) != None
   become: true
   ansible.builtin.template:
