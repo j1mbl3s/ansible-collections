@@ -1,0 +1,14 @@
+---
+- name: Initialize variables for Debian distribution
+  ansible.builtin.set_fact:
+    ca_certificates_openssl_cmd: /usr/bin/openssl
+    ca_certificates_share_dir: /usr/local/share/ca-certificates
+    ca_certificates_share_ext: .crt
+    ca_certificates_update_cmd: /usr/sbin/update-ca-certificates
+
+- name: Install ca-certificates apt package
+  become: true
+  ansible.builtin.apt:
+    name: "ca-certificates{% if ca_certificates_version | default(None) != 'latest' %}{{ ca_certificates_version | default(None) }}{% endif %}"
+    state: "{% if ca_certificates_version | default(None) == 'latest' %}latest{% else %}present{% endif %}"
+...

@@ -1,0 +1,8 @@
+---
+- name: Update CA certificates
+  become: true
+  ansible.builtin.command:
+    cmd: "{{ ca_certificates_update_cmd }}"
+  register: ca_certificates_update_result
+  changed_when: not ca_certificates_update_result.stdout | regex_search('\n0 added, 0 removed')
+...

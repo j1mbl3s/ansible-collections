@@ -38,13 +38,18 @@ tags:
   - common
   - linux
 
-  - tools
+  - ca
+  - certificates
+  - ca-certificates
+  - trust
 
   - systemd_timesyncd
   - timesyncd
   - systemd
   - ntp
   - time
+
+  - tools
 
 # Collections that this collection requires to be installed for it to be usable. The key of the dict is the
 # collection label 'namespace.name'. The value is a version range

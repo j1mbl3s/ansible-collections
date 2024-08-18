@@ -1,0 +1,33 @@
+---
+argument_specs:
+  main:
+    short_description: Configure trusted CA certificates for the host.
+    author: Jaime Jackson-Block
+    options:
+
+      ca_certificates_pem:
+        type: list
+        description:
+          - List of CA certificates.
+        elements: dict
+        options:
+          name:
+            type: str
+            required: true
+            description:
+              - Name for the CA certificate in the filesystem.
+              - >-
+                The directory and extension are determined based on the system.
+                For example on Debian: `/usr/local/share/ca-certificates/<name>.crt`.
+          content:
+            type: str
+            required: true
+            description:
+              - The PEM encoded content of the CA certificate.
+
+      ca_certificates_version:
+        type: str
+        description:
+          - Version specifier for the `ca-certificates` package.
+          - Can be unspecified, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
+...
