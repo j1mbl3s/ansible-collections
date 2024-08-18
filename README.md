@@ -27,7 +27,7 @@ Assuming you have cloned this repository to `../ansible-collections`:
       - source: ../ansible-collections/j1mbl3s
         type: subdirs
 
-      # or a single collection, personal.common
+      # or a single collection, j1mbl3s.common
       - source: ../ansible-collections/j1mbl3s/common
         type: dir
     ```
@@ -35,10 +35,8 @@ Assuming you have cloned this repository to `../ansible-collections`:
 2. Install the collections defined in the `requirements.yaml`:
 
     ```sh
-    ansible-galaxy install -r requirements.yaml
+    ansible-galaxy collection install -r requirements.yaml
     ```
-
-    Use the `-f` option to force reinstallation without an updated `galaxy.yml` version, e.g. for development updates.
 
 ### From GitHub
 
