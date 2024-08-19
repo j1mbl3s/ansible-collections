@@ -29,5 +29,6 @@ argument_specs:
         type: str
         description:
           - Version specifier for the `ca-certificates` package.
-          - Can be unspecified, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
+          - Can be empty, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
+        default: ""
 ...
