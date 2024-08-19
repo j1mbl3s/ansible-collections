@@ -10,6 +10,5 @@
     dest: "{{ ca_certificates_share_dir }}/{{ item.name }}{{ ca_certificates_share_ext }}"
     mode: "0644"
     backup: true
-    validate: "{{ ca_certificates_openssl_cmd }} x509 -in %s"
   notify: Update CA certificates
 ...
