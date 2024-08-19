@@ -3,7 +3,7 @@
   ansible.builtin.include_tasks: "init/{{ ansible_facts.distribution }}.yaml"
 
 - name: Copy CA certificates
-  loop: "{{ ca_certificates_pem | default([]) }}"
+  loop: "{{ ca_certificates_pem }}"
   become: true
   ansible.builtin.copy:
     content: "{{ item.content }}"

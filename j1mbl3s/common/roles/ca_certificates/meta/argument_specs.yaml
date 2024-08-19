@@ -7,8 +7,6 @@ argument_specs:
 
       ca_certificates_pem:
         type: list
-        description:
-          - List of CA certificates.
         elements: dict
         options:
           name:
@@ -24,6 +22,9 @@ argument_specs:
             required: true
             description:
               - The PEM encoded content of the CA certificate.
+        description:
+          - List of CA certificates.
+        default: []
 
       ca_certificates_version:
         type: str

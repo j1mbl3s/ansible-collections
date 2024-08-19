@@ -1,3 +1,4 @@
 ---
+ca_certificates_pem: []
 ca_certificates_version: ""
 ...
