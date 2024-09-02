@@ -1,0 +1,102 @@
+---
+argument_specs:
+  main:
+    short_description: Manage Kerberos V5 realm policies.
+    description:
+      - Manage Kerberos V5 realm policies.
+      - For more information regarding options, see the manual pages for `kadmin` "add_policy".
+    author: Jaime Jackson-Block
+    seealso:
+      - name: kadmin documentation
+        description: Kerberos V5 documentation for `kadmin`
+        link: https://web.mit.edu/kerberos/krb5-1.12/doc/admin/admin_commands/kadmin_local.html
+    options:
+
+      krb5_policy_admin_keytab:
+        type: path
+        description:
+          - A keytab file on the host to use for authenticating `kadmin` commands.
+          - Either this variable or `krb5_policy_admin_password` must be defined.
+          - This variable will be used in preference to `krb5_policy_admin_password`.
+        default: ""
+
+      krb5_policy_admin_name:
+        type: str
+        required: true
+        description:
+          - The principal name to use for authenticating `kadmin` commands.
+
+      krb5_policy_admin_password:
+        type: str
+        description:
+          - The password to use for authenticating `kadmin` commands.
+          - Either this variable or `krb5_principal_admin_keytab` must be defined.
+        default: ""
+
+      krb5_policy_name:
+        type: str
+        required: true
+        description:
+          - Name for the policy to manage.
+
+      krb5_policy_option_allowedkeysalts:
+        type: str
+        description:
+          - Value for the `-allowedkeysalts` policy option.
+        default: "-"
+
+      krb5_policy_option_failurecountinterval:
+        type: int
+        description:
+          - Value in seconds for the `-failurecountinterval` policy option.
+        default: 0
+
+      krb5_policy_option_history:
+        type: int
+        description:
+          - Value for the `-history` policy option.
+        default: 1
+
+      krb5_policy_option_lockoutduration:
+        type: int
+        description:
+          - Value in seconds for the `-lockoutduration` policy option.
+        default: 0
+
+      krb5_policy_option_maxfailure:
+        type: int
+        description:
+          - Value for the `-maxfailure` policy option.
+        default: 0
+      
+      krb5_policy_option_maxlife:
+        type: int
+        description:
+          - Value in seconds for the `-maxlife` policy option.
+        default: 0
+
+      krb5_policy_option_minclasses:
+        type: int
+        description:
+          - Value for the `-minclasses` policy option.
+        default: 1
+
+      krb5_policy_option_minlength:
+        type: int
+        description:
+          - Value for the `-minlength` policy option.
+        default: 1
+
+      krb5_policy_option_minlife:
+        type: int
+        description:
+          - Value in seconds for the `-minlife` policy option.
+        default: 0
+
+      krb5_policy_realm:
+        type: str
+        description:
+          - Name of the realm to manage this principal in.
+          - Uses the default configured realm if none is specified.
+        default: ""
+...

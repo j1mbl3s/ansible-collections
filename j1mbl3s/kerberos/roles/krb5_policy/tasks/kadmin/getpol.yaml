@@ -1,0 +1,65 @@
+---
+- name: Run `kadmin getpol ...` with delegated failure
+  become: true
+  ansible.builtin.expect:
+    command: >-
+      {{ krb5_policy_kadmin_command_init }}
+      getpol
+      -terse
+      {{ krb5_policy_name }}
+    responses: "{{ krb5_policy_kadmin_responses_init }}"
+  no_log: true
+  register: krb5_policy_getpol
+  changed_when: false
+  failed_when: false
+
+- name: Set getpol noexist fact
+  ansible.builtin.set_fact:
+    krb5_policy_getpol_noexist: >-
+      {{
+        krb5_policy_getpol.rc > 0 and
+        krb5_policy_getpol.stdout_lines[-1].startswith(
+          'get_policy: Policy does not exist'
+        )
+      }}
+
+- name: Delegated failure for `kadmin getpol ...`
+  when:
+    - krb5_policy_getpol.rc > 0
+    - not krb5_policy_getpol_noexist
+  ansible.builtin.fail:
+    msg: "{{ krb5_policy_getpol.stdout_lines[-1] }}"
+
+- name: Parse `kadmin getpol ...` output for existing principal
+  when: krb5_policy_getpol.rc == 0
+  block:
+
+    - name: Set getpol options fact
+      ansible.builtin.set_fact:
+        krb5_policy_getpol_options: >-
+          {{
+            dict(
+              [
+                'name',
+                'maxlife',
+                'minlife',
+                'minlength',
+                'minclasses',
+                'history',
+                'maxfailure',
+                'failurecountinterval',
+                'lockoutduration',
+                'allowedkeysalts'
+              ]
+              | zip(
+                  (
+                    krb5_policy_getpol.stdout_lines[-1]
+                    | split
+                  )[:6] + (
+                    krb5_policy_getpol.stdout_lines[-1]
+                    | split
+                  )[7:]
+                )
+            )
+          }}
+...

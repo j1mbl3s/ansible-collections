@@ -1,0 +1,27 @@
+---
+- name: Initialize kadmin command prefix fact
+  ansible.builtin.set_fact:
+    krb5_policy_kadmin_command_init: >-
+      /usr/bin/kadmin
+      {{
+        (
+          ('-r ' + krb5_policy_realm + ' ')
+          if krb5_policy_realm | length > 0 else
+          ''
+        ) + '-p ' + krb5_policy_admin_name + (
+          (' -kt ' + krb5_policy_admin_keytab)
+          if krb5_policy_admin_keytab | length > 0 else
+          ''
+        )
+      }}
+
+- name: Initialize kadmin command responses fact
+  ansible.builtin.set_fact:
+    krb5_policy_kadmin_responses_init: >-
+      {{
+        {}
+        if krb5_policy_admin_keytab | length > 0 else
+        { 'Password for': krb5_policy_admin_password }
+      }}
+  no_log: true
+...

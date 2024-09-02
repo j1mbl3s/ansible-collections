@@ -1,0 +1,26 @@
+---
+- name: Include getpol tasks
+  ansible.builtin.include_tasks: getpol.yaml
+
+- name: Include addpol tasks for nonexistng policy
+  when: krb5_policy_getpol_noexist
+  ansible.builtin.include_tasks: addpol.yaml
+
+- name: Include modpol tasks for existing policy
+  when:
+    - not krb5_policy_getpol_noexist
+    - >-
+      krb5_policy_getpol_options != {
+        'name': '"' + krb5_policy_name + '"',
+        'maxlife': krb5_policy_option_maxlife | string,
+        'minlife': krb5_policy_option_minlife | string,
+        'minlength': krb5_policy_option_minlength | string,
+        'minclasses': krb5_policy_option_minclasses | string,
+        'history': krb5_policy_option_history | string,
+        'maxfailure': krb5_policy_option_maxfailure | string,
+        'failurecountinterval': krb5_policy_option_failurecountinterval | string,
+        'lockoutduration': krb5_policy_option_lockoutduration | string,
+        'allowedkeysalts': krb5_policy_option_allowedkeysalts
+      }
+  ansible.builtin.include_tasks: modpol.yaml
+...

@@ -1,0 +1,20 @@
+---
+- name: Custom validation for admin keytab or password
+  ansible.builtin.assert:
+    that:
+      - >-
+        krb5_policy_admin_keytab | length > 0 or
+        krb5_policy_admin_password | length > 0
+    quiet: true
+    fail_msg: "Either 'krb5_policy_admin_keytab' or 'krb5_policy_admin_password' is required"
+
+- name: Custom validation for allowedkeysalts option
+  ansible.builtin.assert:
+    that:
+      - krb5_policy_option_allowedkeysalts | length > 0
+      - >-
+        not krb5_policy_option_allowedkeysalts
+        is ansible.builtin.regex('\s')
+    quiet: true
+    fail_msg: "'krb5_policy_option_allowedkeysalts' cannot be empty or contain whitespace"
+...

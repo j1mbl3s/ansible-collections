@@ -1,0 +1,7 @@
+---
+- name: Include init validate tasks
+  ansible.builtin.include_tasks: validate.yaml
+
+- name: Include init facts tasks
+  ansible.builtin.include_tasks: facts.yaml
+...

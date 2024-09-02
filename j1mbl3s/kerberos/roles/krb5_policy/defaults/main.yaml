@@ -1,0 +1,14 @@
+---
+krb5_policy_admin_keytab: ""
+krb5_policy_admin_password: ""
+krb5_policy_option_allowedkeysalts: "-"
+krb5_policy_option_failurecountinterval: 0
+krb5_policy_option_history: 1
+krb5_policy_option_lockoutduration: 0
+krb5_policy_option_maxfailure: 0
+krb5_policy_option_maxlife: 0
+krb5_policy_option_minclasses: 1
+krb5_policy_option_minlength: 1
+krb5_policy_option_minlife: 0
+krb5_policy_realm: ""
+...

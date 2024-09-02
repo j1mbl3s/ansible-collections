@@ -1,0 +1,28 @@
+---
+- name: Run `kadmin addpol ...` with delegated failure
+  become: true
+  ansible.builtin.expect:
+    command: >-
+      {{ krb5_policy_kadmin_command_init }}
+      addpol
+      -maxlife {{ krb5_policy_option_maxlife }}
+      -minlife {{ krb5_policy_option_minlife }}
+      -minlength {{ krb5_policy_option_minlength }}
+      -minclasses {{ krb5_policy_option_minclasses }}
+      -history {{ krb5_policy_option_history }}
+      -maxfailure {{ krb5_policy_option_maxfailure }}
+      -failurecountinterval {{ krb5_policy_option_failurecountinterval }}
+      -lockoutduration {{ krb5_policy_option_lockoutduration }}
+      -allowedkeysalts {{ krb5_policy_option_allowedkeysalts }}
+      {{ krb5_policy_name }}
+    responses: "{{ krb5_policy_kadmin_responses_init }}"
+  no_log: true
+  register: krb5_policy_addpol
+  changed_when: krb5_policy_addpol.rc == 0
+  failed_when: false
+
+- name: Delegated failure for `kadmin addpol ...`
+  when: krb5_policy_addpol.rc > 0
+  ansible.builtin.fail:
+    msg: "{{ krb5_policy_addpol.stdout_lines[-1] }}"
+...
