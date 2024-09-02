@@ -1,0 +1,25 @@
+---
+- name: Include getprinc tasks
+  ansible.builtin.include_tasks: getprinc.yaml
+
+- name: Include addprinc tasks for nonexisting principal
+  when: krb5_principal_noexist
+  ansible.builtin.include_tasks: addprinc.yaml
+
+- name: Include modprinc tasks for existing principal 
+  when: not krb5_principal_noexist
+  ansible.builtin.include_tasks: modprinc.yaml
+
+- name: Include cpw tasks for existing user principal password reset
+  when:
+    - not krb5_principal_noexist
+    - krb5_principal_type == 'user'
+    - >-
+      krb5_principal_password_reset or
+      not krb5_principal_modprinc_type_attributes is skipped
+  ansible.builtin.include_tasks: cpw.yaml
+
+- name: Include ktadd tasks for service principal
+  when: krb5_principal_type == 'service'
+  ansible.builtin.include_tasks: ktadd.yaml
+...

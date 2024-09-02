@@ -1,0 +1,117 @@
+---
+- name: Initialize needkey fact to false
+  ansible.builtin.set_fact:
+    krb5_principal_needkey: false
+
+- name: Set needkey fact for added principal
+  when: krb5_principal_addprinc | default(None) != None
+  ansible.builtin.set_fact:
+    krb5_principal_needkey: true
+
+- name: Continue needkey checks for existing principal
+  when: not krb5_principal_needkey
+  block:
+    
+    - name: Set needkey fact for no getprinc keys
+      when: krb5_principal_getprinc_keys | length == 0
+      ansible.builtin.set_fact:
+        krb5_principal_needkey: true
+    
+    - name: Continue needkey checks for existing getprinc keys
+      when: not krb5_principal_needkey
+      block:
+
+        - name: Stat the keytab file
+          become: true
+          ansible.builtin.stat:
+            path: "{{ krb5_principal_keytab }}"
+          register: krb5_principal_keytab_stat
+        
+        - name: Set needkey fact for nonexisting keytab file
+          when: not krb5_principal_keytab_stat.stat.exists
+          ansible.builtin.set_fact:
+            krb5_principal_needkey: true
+        
+        - name: Continue needkey checks for existing keytab file
+          when: not krb5_principal_needkey
+          block:
+
+            - name: Set expected kvno to the max key vno
+              ansible.builtin.set_fact:
+                krb5_principal_expected_kvno: >-
+                  {{
+                    krb5_principal_getprinc_keys
+                    | map('first')
+                    | map('int')
+                    | max
+                    | string
+                  }}
+            
+            - name: Set expected kencrypt fact to empty list
+              ansible.builtin.set_fact:
+                krb5_principal_expected_kencrypt: []
+            
+            - name: Add to expected kencrypt fact the list of key encryptions for the expected kvno 
+              loop: "{{ krb5_principal_getprinc_keys }}"
+              when: item[0] == krb5_principal_expected_kvno
+              ansible.builtin.set_fact:
+                krb5_principal_expected_kencrypt: >-
+                  {{ krb5_principal_expected_kencrypt + [item[1]] }}
+
+            - name: Run klist on the keytab file
+              become: true
+              ansible.builtin.command:
+                cmd: "/usr/bin/klist -ek {{ krb5_principal_keytab }}"
+              register: krb5_principal_klist
+              changed_when: false
+            
+            - name: Set klist kencrypt fact to all key encryptions in the klist output matching the principal and expected kvno
+              ansible.builtin.set_fact:
+                krb5_principal_klist_kencrypt: >-
+                  {{
+                    krb5_principal_klist.stdout_lines
+                    | select('ansible.builtin.regex', '^\s*' + krb5_principal_expected_kvno + '\s+' + (krb5_principal_name | ansible.builtin.regex_escape) + '(?:@\S+)?\s')
+                    | map('ansible.builtin.regex_search', '\((.*)\)\s*$', '\1')
+                    | map('first')
+                  }}
+
+            - name: Set needkey fact for missing keytab key encryptions
+              when: >-
+                krb5_principal_expected_kencrypt
+                | ansible.builtin.intersect(krb5_principal_klist_kencrypt)
+                | length != krb5_principal_expected_kencrypt | length
+              ansible.builtin.set_fact:
+                krb5_principal_needkey: true
+
+- name: Keytab is needed
+  when: krb5_principal_needkey
+  block:
+
+    - name: Run 'kadmin ktadd ...' with delegated failure
+      become: true
+      ansible.builtin.expect:
+        command: >-
+          {{ krb5_principal_kadmin_command_init }}
+          ktadd
+          -k {{ krb5_principal_keytab }}
+          {{ krb5_principal_name }}
+        responses: "{{ krb5_principal_kadmin_responses_init }}"
+      no_log: true
+      register: krb5_principal_ktadd
+      changed_when: true
+      failed_when: false
+
+    - name: Delegated failure for 'kadmin ktadd ...'
+      when: krb5_principal_ktadd.rc > 0
+      ansible.builtin.fail:
+        msg: "{{ krb5_principal_ktadd.stdout_lines[-1] }}"
+
+- name: File permissions for keytab
+  become: true
+  ansible.builtin.file:
+    path: "{{ krb5_principal_keytab }}"
+    state: file
+    owner: "{{ krb5_principal_keytab_owner }}"
+    group: "{{ krb5_principal_keytab_group }}"
+    mode: "{{ krb5_principal_keytab_mode }}"
+...

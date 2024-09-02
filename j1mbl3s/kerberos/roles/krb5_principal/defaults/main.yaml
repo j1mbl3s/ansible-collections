@@ -1,0 +1,10 @@
+---
+krb5_principal_keytab: /etc/krb5.keytab
+krb5_principal_keytab_group: root
+krb5_principal_keytab_mode: "0600"
+krb5_principal_keytab_owner: root
+krb5_principal_password: ""
+krb5_principal_password_reset: false
+krb5_principal_policy: ""
+krb5_principal_realm: ""
+...

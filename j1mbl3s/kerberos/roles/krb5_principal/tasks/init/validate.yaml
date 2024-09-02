@@ -1,0 +1,10 @@
+---
+- name: Custom validation for admin keytab or password
+  ansible.builtin.assert:
+    that:
+      - >-
+        krb5_principal_admin_keytab | default(None) != None or
+        krb5_principal_admin_password | default(None) != None
+    quiet: true
+    fail_msg: "Either 'krb5_principal_admin_keytab' or 'krb5_principal_admin_password' is required"
+...

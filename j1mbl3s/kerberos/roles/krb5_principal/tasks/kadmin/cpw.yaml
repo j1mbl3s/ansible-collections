@@ -1,0 +1,26 @@
+---
+- name: Run `kadmin cpw ...` with delegated failure
+  become: true
+  ansible.builtin.expect:
+    command: >-
+      {{ krb5_principal_kadmin_command_init }}
+      cpw
+      {{ krb5_principal_name }}
+    responses: >-
+      {{
+        krb5_principal_kadmin_responses_init
+        | ansible.builtin.combine({
+            'Enter password for principal': krb5_principal_password,
+            'Re-enter password for principal': krb5_principal_password
+          })
+      }}
+  no_log: true
+  register: krb5_principal_cpw
+  changed_when: krb5_principal_cpw.rc == 0
+  failed_when: false
+
+- name: Delegated failure for `kadmin cpw ...`
+  when: krb5_principal_cpw.rc > 0
+  ansible.builtin.fail:
+    msg: "{{ krb5_principal_cpw.stdout_lines[-1] }}"
+...

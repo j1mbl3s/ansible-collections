@@ -1,0 +1,7 @@
+---
+- name: Include init tasks
+  ansible.builtin.include_tasks: init/main.yaml
+
+- name: Include kadmin tasks
+  ansible.builtin.include_tasks: kadmin/main.yaml
+...

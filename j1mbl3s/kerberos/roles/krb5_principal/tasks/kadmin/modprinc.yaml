@@ -1,0 +1,71 @@
+---
+- name: Run `kadmin modprinc ...` for type attributes with delegated failure
+  when: >-
+    (
+      krb5_principal_type == 'user' and (
+        not krb5_principal_getprinc_attributes is ansible.builtin.contains('REQUIRES_PRE_AUTH') or
+        not krb5_principal_getprinc_attributes is ansible.builtin.contains('DISALLOW_SVR')
+      )
+    ) or (
+      krb5_principal_type == 'service' and (
+        krb5_principal_getprinc_attributes is ansible.builtin.contains('REQUIRES_PRE_AUTH') or
+        krb5_principal_getprinc_attributes is ansible.builtin.contains('DISALLOW_SVR')
+      )
+    )
+  become: true
+  ansible.builtin.expect:
+    command: >-
+      {{ krb5_principal_kadmin_command_init }}
+      modprinc
+      {{
+        '+requires_preauth -allow_svr'
+        if krb5_principal_type == 'user' else
+        '-requires_preauth +allow_svr'
+      }}
+      {{ krb5_principal_name }}
+    responses: "{{ krb5_principal_kadmin_responses_init }}"
+  no_log: true
+  register: krb5_principal_modprinc_type_attributes
+  changed_when: krb5_principal_modprinc_type_attributes.rc == 0
+  failed_when: false
+
+- name: Delegated failure for `kadmin modprinc ...` for type attributes
+  when:
+    - not krb5_principal_modprinc_type_attributes is skipped
+    - krb5_principal_modprinc_type_attributes.rc > 0
+  ansible.builtin.fail:
+    msg: "{{ krb5_principal_modprinc_type_attributes.stdout_lines[-1] }}"
+
+- name: Run `kadmin modprinc ...` for policy with delegated failure
+  when: >-
+    (
+      krb5_principal_policy | length > 0 and
+      krb5_principal_getprinc_policy != krb5_principal_policy
+    ) or (
+      krb5_principal_policy | length == 0 and
+      krb5_principal_getprinc_policy != '[none]'
+    )
+  become: true
+  ansible.builtin.expect:
+    command: >-
+      {{ krb5_principal_kadmin_command_init }}
+      modprinc
+      {{
+        ('-policy ' + krb5_principal_policy)
+        if krb5_principal_policy | length > 0 else
+        '-clearpolicy'
+      }}
+      {{ krb5_principal_name }}
+    responses: "{{ krb5_principal_kadmin_responses_init }}"
+  no_log: true
+  register: krb5_principal_modprinc_policy
+  changed_when: krb5_principal_modprinc_policy.rc == 0
+  failed_when: false
+
+- name: Delegated failure for `kadmin modprinc ...` for policy
+  when:
+    - not krb5_principal_modprinc_policy is skipped
+    - krb5_principal_modprinc_policy.rc > 0
+  ansible.builtin.fail:
+    msg: "{{ krb5_principal_modprinc_policy.stdout_lines[-1] }}"
+...

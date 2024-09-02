@@ -1,0 +1,98 @@
+---
+argument_specs:
+  main:
+    short_description: Manage Kerberos V5 principals and their keytabs.
+    description:
+      - Manage Kerberos V5 principals and their keytabs.
+      - This role uses `kadmin` commands to add and modify principals, passwords, and generate keytabs.
+      - >-
+        It is assumed that the `krb5` and `krb5_conf` roles have been applied to the host
+        to install and configure the Kerberos V5 common client libraries and utilities before using this role.
+    author: Jaime Jackson-Block
+    options:
+
+      krb5_principal_admin_keytab:
+        type: path
+        description:
+          - A keytab file on the host to use for authenticating `kadmin` commands.
+          - Either this variable or `krb5_principal_admin_password` must be defined.
+          - This variable will be used in preference to krb5_principal_admin_password.
+
+      krb5_principal_admin_name:
+        type: str
+        required: true
+        description:
+          - The principal name to use for authenticating `kadmin` commands.
+
+      krb5_principal_admin_password:
+        type: str
+        description:
+          - The password to use for authenticating `kadmin` commands.
+          - Either this variable or `krb5_principal_admin_keytab` must be defined.
+
+      krb5_principal_name:
+        type: str
+        required: true
+        description:
+          - The name of the principal to manage.
+
+      krb5_principal_keytab:
+        type: path
+        description:
+          - For service-type principals, path to add the keytab to on the host.
+        default: /etc/krb5.keytab
+
+      krb5_principal_keytab_group:
+        type: str
+        description:
+          - Group for the service principal keytab on the host.
+        default: root
+
+      krb5_principal_keytab_mode:
+        type: str
+        description:
+          - File permissions for the service principal keytab on the host.
+        default: "0600"
+
+      krb5_principal_keytab_owner:
+        type: str
+        description:
+          - Owner for the service principal keytab on the host.
+        default: root        
+
+      krb5_principal_password:
+        type: str
+        description:
+          - The password to set initially or reset to for a user principal.
+        default: ""
+
+      krb5_principal_password_reset:
+        type: bool
+        description:
+          - Flag indicating if an existing user principal should have its password reset to `krb5_principal_password`.
+        default: false
+
+      krb5_principal_policy:
+        type: str
+        description:
+          - Name of the policy to apply to the principal.
+        default: ""
+
+      krb5_principal_realm:
+        type: str
+        description:
+          - Name of the realm to manage this principal in.
+          - Uses the default configured realm if none is specified.
+        default: ""
+
+      krb5_principal_type:
+        type: str
+        choices:
+          - service
+          - user
+        required: true
+        description:
+          - "Determines the type of principal: either a user (with password) or a service (with keytab)."
+          - User-type principals have passwords, require preauth for logging authentication attempt status, and cannot be used in service tickets.
+          - Service-type principals have random keys (for use with keytabs), do not require preauth, and can be used in service tickets.
+...
