@@ -1,13 +1,15 @@
 ---
 argument_specs:
   main:
-    short_description: Configure trusted CA certificates for the host.
+    short_description: Configure trusted CA certificates globally on the host.
     author: Jaime Jackson-Block
     options:
 
       ca_certificates_pem:
         type: list
         elements: dict
+        description:
+          - List of extra CA certificates to install system-wide.
         options:
           name:
             type: str
@@ -22,14 +24,12 @@ argument_specs:
             required: true
             description:
               - The PEM encoded content of the CA certificate.
-        description:
-          - List of CA certificates.
         default: []
 
       ca_certificates_version:
         type: str
         description:
           - Version specifier for the `ca-certificates` package.
-          - Can be empty, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
+          - May be empty, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
         default: ""
 ...

@@ -1,6 +1,6 @@
 ---
 - name: Include distribution init tasks
-  ansible.builtin.include_tasks: "init/{{ ansible_facts.distribution }}.yaml"
+  ansible.builtin.include_tasks: "init/{{ ansible_facts.distribution }}/main.yaml"
 
 - name: Copy CA certificates
   loop: "{{ ca_certificates_pem }}"

@@ -1,4 +1,4 @@
 ---
-- name: Import package manager tasks
+- name: Include package manager tasks
   ansible.builtin.include_tasks: "{{ ansible_facts.pkg_mgr }}.yaml"
 ...

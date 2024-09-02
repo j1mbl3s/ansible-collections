@@ -2,4 +2,4 @@
 
 A collection of common stuff.
 
-Common tasks, tools, and configurations.
+Simple tasks, tools, configurations, etc.

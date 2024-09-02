@@ -35,6 +35,7 @@ license:
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
 tags:
+
   - common
   - linux
 
@@ -58,16 +59,16 @@ tags:
 # dependencies: {}
 
 # The URL of the originating SCM repository
-repository: https://github.com/j1mbl3s/ansible-collections#/j1mbl3s/common
+repository: https://github.com/j1mbl3s/ansible-collections.git
 
 # The URL to any online docs
-# documentation: http://docs.example.com
+documentation: https://github.com/j1mbl3s/ansible-collections#/j1mbl3s/common
 
 # The URL to the homepage of the collection/project
-# homepage: http://example.com
+homepage: https://github.com/j1mbl3s/ansible-collections#/j1mbl3s/common
 
 # The URL to the collection issue tracker
-# issues: http://example.com/issue/tracker
+issues: https://github.com/j1mbl3s/ansible-collections/issues
 
 # A list of file glob-like patterns used to filter any files or directories that should not be included in the build
 # artifact. A pattern is matched from the relative path of the file or directory of the collection directory. This
