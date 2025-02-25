@@ -1,0 +1,17 @@
+---
+- name: Include init tasks
+  ansible.builtin.include_tasks: init/main.yaml
+
+- name: Template the krb5.conf file
+  become: true
+  ansible.builtin.template:
+    src: krb5.conf.j2
+    dest: "{{ krb5_conf_file_dest }}"
+    owner: "{{ krb5_conf_file_owner }}"
+    group: "{{ krb5_conf_file_group | default(krb5_conf_file_owner) }}"
+    mode: "{{ krb5_conf_file_mode }}"
+    backup: "{{ krb5_conf_file_backup }}"
+  notify:
+    - Restart krb5kdc service
+    - Restart kadmind service
+...

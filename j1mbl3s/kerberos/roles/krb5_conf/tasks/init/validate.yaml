@@ -1,0 +1,15 @@
+---
+- name: Custom validation for unique realm names
+  ansible.builtin.assert:
+    that:
+      - krb5_conf_realms | unique(attribute='name') | length == krb5_conf_realms | length
+    quiet: true
+    fail_msg: "Realm names must be unique"
+
+- name: Custom validation for unique capath client realms
+  ansible.builtin.assert:
+    that:
+      - krb5_conf_capaths | unique(attribute='client_realm') | length == krb5_conf_capaths | length
+    quiet: true
+    fail_msg: "Capath client realms must be unique"
+...

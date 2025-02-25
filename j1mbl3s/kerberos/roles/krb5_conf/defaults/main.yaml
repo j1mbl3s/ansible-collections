@@ -1,0 +1,11 @@
+---
+krb5_conf_appdefaults: {}
+krb5_conf_capaths: []
+krb5_conf_domain_realm: []
+krb5_conf_file_backup: false
+krb5_conf_file_mode: "0644"
+krb5_conf_file_owner: root
+krb5_conf_libdefaults: {}
+krb5_conf_plugins: []
+krb5_conf_realms: []
+...

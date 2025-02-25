@@ -1,0 +1,7 @@
+---
+- name: Include init validate tasks
+  ansible.builtin.include_tasks: validate.yaml
+
+- name: Include init distribution tasks
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}/main.yaml"
+...

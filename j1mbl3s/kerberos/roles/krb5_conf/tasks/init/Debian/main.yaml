@@ -1,0 +1,5 @@
+---
+- name: Initialize variables for Debian distribution
+  ansible.builtin.set_fact:
+    krb5_conf_file_dest: "{% if krb5_conf_file_dest | default(None) != None %}{{ krb5_conf_file_dest }}{% else %}/etc/krb5.conf{% endif %}"
+...

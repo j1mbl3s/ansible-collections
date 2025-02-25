@@ -1,0 +1,7 @@
+---
+- name: Restart krb5kdc service
+  ansible.builtin.meta: noop
+
+- name: Restart kadmind service
+  ansible.builtin.meta: noop
+...

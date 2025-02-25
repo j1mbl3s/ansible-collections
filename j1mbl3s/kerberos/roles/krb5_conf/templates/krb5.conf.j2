@@ -1,0 +1,243 @@
+# ANSIBLE MANAGED FILE
+# ROLE: j1mbl3s.kerberos.krb5_conf
+
+[libdefaults]
+{% if krb5_conf_libdefaults.allow_des3 | default(None) != None %}
+    allow_des3 = {{ krb5_conf_libdefaults.allow_des3 | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.allow_rc4 | default(None) != None %}
+    allow_rc4 = {{ krb5_conf_libdefaults.allow_rc4 | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.allow_weak_crypto | default(None) != None %}
+    allow_weak_crypto = {{ krb5_conf_libdefaults.allow_weak_crypto | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.canonicalize | default(None) != None %}
+    canonicalize = {{ krb5_conf_libdefaults.canonicalize | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.ccache_type | default(None) != None %}
+    ccache_type = {{ krb5_conf_libdefaults.ccache_type }}
+{% endif %}
+{% if krb5_conf_libdefaults.clockskew | default(None) != None %}
+    clockskew = {{ krb5_conf_libdefaults.clockskew }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_ccache_name | default(None) != None %}
+    default_ccache_name = {{ krb5_conf_libdefaults.default_ccache_name }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_client_keytab_name | default(None) != None %}
+    default_client_keytab_name = {{ krb5_conf_libdefaults.default_client_keytab_name }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_keytab_name | default(None) != None %}
+    default_keytab_name = {{ krb5_conf_libdefaults.default_keytab_name }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_rcache_name | default(None) != None %}
+    default_rcache_name = {{ krb5_conf_libdefaults.default_rcache_name }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_realm | default(None) != None %}
+    default_realm = {{ krb5_conf_libdefaults.default_realm }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_tgs_enctypes | default(None) != None %}
+    default_tgs_enctypes = {{ krb5_conf_libdefaults.default_tgs_enctypes }}
+{% endif %}
+{% if krb5_conf_libdefaults.default_tkt_enctypes | default(None) != None %}
+    default_tkt_enctypes = {{ krb5_conf_libdefaults.default_tkt_enctypes }}
+{% endif %}
+{% if krb5_conf_libdefaults.dns_canonicalize_hostname | default(None) != None %}
+    dns_canonicalize_hostname = {{ krb5_conf_libdefaults.dns_canonicalize_hostname | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.dns_lookup_kdc | default(None) != None %}
+    dns_lookup_kdc = {{ krb5_conf_libdefaults.dns_lookup_kdc | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.dns_uri_lookup | default(None) != None %}
+    dns_uri_lookup = {{ krb5_conf_libdefaults.dns_uri_lookup | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.enforce_ok_as_delegate | default(None) != None %}
+    enforce_ok_as_delegate = {{ krb5_conf_libdefaults.enforce_ok_as_delegate | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.err_fmt | default(None) != None %}
+    err_fmt = {{ krb5_conf_libdefaults.err_fmt }}
+{% endif %}
+{% if krb5_conf_libdefaults.extra_addresses | default(None) != None %}
+    extra_addresses = {{ krb5_conf_libdefaults.extra_addresses }}
+{% endif %}
+{% if krb5_conf_libdefaults.forwardable | default(None) != None %}
+    forwardable = {{ krb5_conf_libdefaults.forwardable | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.ignore_acceptor_hostname | default(None) != None %}
+    ignore_acceptor_hostname = {{ krb5_conf_libdefaults.ignore_acceptor_hostname | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.k5login_authoritative | default(None) != None %}
+    k5login_authoritative = {{ krb5_conf_libdefaults.k5login_authoritative | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.k5login_directory | default(None) != None %}
+    k5login_directory = {{ krb5_conf_libdefaults.k5login_directory }}
+{% endif %}
+{% if krb5_conf_libdefaults.kcm_mach_service | default(None) != None %}
+    kcm_mach_service = {{ krb5_conf_libdefaults.kcm_mach_service }}
+{% endif %}
+{% if krb5_conf_libdefaults.kcm_socket | default(None) != None %}
+    kcm_socket = {{ krb5_conf_libdefaults.kcm_socket }}
+{% endif %}
+{% if krb5_conf_libdefaults.kdc_default_options | default(None) != None %}
+    kdc_default_options = {{ krb5_conf_libdefaults.kdc_default_options }}
+{% endif %}
+{% if krb5_conf_libdefaults.kdc_timesync | default(None) != None %}
+    kdc_timesync = {{ krb5_conf_libdefaults.kdc_timesync }}
+{% endif %}
+{% if krb5_conf_libdefaults.noaddresses | default(None) != None %}
+    noaddresses = {{ krb5_conf_libdefaults.noaddresses | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.permitted_enctypes | default(None) != None %}
+    permitted_enctypes = {{ krb5_conf_libdefaults.permitted_enctypes }}
+{% endif %}
+{% if krb5_conf_libdefaults.plugin_base_dir | default(None) != None %}
+    plugin_base_dir = {{ krb5_conf_libdefaults.plugin_base_dir }}
+{% endif %}
+{% if krb5_conf_libdefaults.preferred_preauth_types | default(None) != None %}
+    preferred_preauth_types = {{ krb5_conf_libdefaults.preferred_preauth_types }}
+{% endif %}
+{% if krb5_conf_libdefaults.proxiable | default(None) != None %}
+    proxiable = {{ krb5_conf_libdefaults.proxiable | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.qualify_shortname | default(None) != None %}
+    qualify_shortname = {{ krb5_conf_libdefaults.qualify_shortname }}
+{% endif %}
+{% if krb5_conf_libdefaults.rdns | default(None) != None %}
+    rdns = {{ krb5_conf_libdefaults.rdns | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.realm_try_domains | default(None) != None %}
+    realm_try_domains = {{ krb5_conf_libdefaults.realm_try_domains }}
+{% endif %}
+{% if krb5_conf_libdefaults.renew_lifetime | default(None) != None %}
+    renew_lifetime = {{ krb5_conf_libdefaults.renew_lifetime }}
+{% endif %}
+{% if krb5_conf_libdefaults.spake_preauth_groups | default(None) != None %}
+    spake_preauth_groups = {{ krb5_conf_libdefaults.spake_preauth_groups }}
+{% endif %}
+{% if krb5_conf_libdefaults.ticket_lifetime | default(None) != None %}
+    ticket_lifetime = {{ krb5_conf_libdefaults.ticket_lifetime }}
+{% endif %}
+{% if krb5_conf_libdefaults.udp_preference_limit | default(None) != None %}
+    udp_preference_limit = {{ krb5_conf_libdefaults.udp_preference_limit }}
+{% endif %}
+{% if krb5_conf_libdefaults.verify_ap_req_nofail | default(None) != None %}
+    verify_ap_req_nofail = {{ krb5_conf_libdefaults.verify_ap_req_nofail | ternary('true', 'false') }}
+{% endif %}
+{% if krb5_conf_libdefaults.client_aware_channel_bindings | default(None) != None %}
+    client_aware_channel_bindings = {{ krb5_conf_libdefaults.client_aware_channel_bindings | ternary('true', 'false') }}
+{% endif %}
+
+[realms]
+{% for realm in krb5_conf_realms %}
+    {{ realm.name }} = {
+{% if realm.admin_server | default(None) != None %}
+        admin_server = {{ realm.admin_server }}
+{% endif %}
+{% for rule in realm.auth_to_local %}
+        auth_to_local = {{ rule }}
+{% endfor %}
+{% if realm.auth_to_local_names | default(None) != None %}
+        auth_to_local_names = {
+{% for principal, local in realm.auth_to_local_names | items %}
+            {{ principal }} = {{ local }}
+{% endfor %}
+        }
+{% endif %}
+{% if realm.default_domain | default(None) != None %}
+        default_domain = {{ realm.default_domain }}
+{% endif %}
+{% if realm.disable_encrypted_timestamp | default(None) != None %}
+        disable_encrypted_timestamp = {{ realm.disable_encrypted_timestamp | ternary('true', 'false') }}
+{% endif %}
+{% if realm.http_anchors | default(None) != None %}
+        http_anchors = {{ realm.http_anchors }}
+{% endif %}
+{% if realm.kdc | default(None) != None %}
+        kdc = {{ realm.kdc }}
+{% endif %}
+{% if realm.kpasswd_server | default(None) != None %}
+        kpasswd_server = {{ realm.kpasswd_server }}
+{% endif %}
+{% if realm.master_kdc | default(None) != None %}
+        master_kdc = {{ realm.master_kdc }}
+{% endif %}
+{% if realm.primary_kdc | default(None) != None %}
+        primary_kdc = {{ realm.primary_kdc }}
+{% endif %}
+{% if realm.v4_instance_convert | default(None) != None %}
+        v4_instance_convert = {
+{% for instance, hostname in realm.v4_instance_convert | items %}
+            {{ instance }} = {{ hostname }}
+{% endfor %}
+        }
+{% endif %}
+{% if realm.v4_realm | default(None) != None %}
+        v4_realm = {{ realm.v4_realm }}
+{% endif %}
+    }
+{% endfor %}
+
+[domain_realm]
+{% for domain_realm in krb5_conf_domain_realm %}
+    {{ domain_realm.domain }} = {{ domain_realm.realm }}
+{% endfor %}
+
+[capaths]
+{% for capath in krb5_conf_capaths %}
+    {{ capath.client_realm }} = {
+{% for server_realm in capath.server_realms | default([]) %}
+{% for intermediate_realm in server_realm.intermediate_realms %}
+        {{ server_realm.name }} = {{ intermediate_realm }}
+{% endfor %}
+{% endfor %}
+    }
+{% endfor %}
+
+[appdefaults]
+{% for key, value in krb5_conf_appdefaults | items %}
+{% if value is mapping %}
+    {{ key }} = {
+{% for ke, val in value | items %}
+{% if val is mapping %}
+        {{ ke }} = {
+{% for k, v in val | items %}
+{% if v is iterable and not v is string %}
+{% for va in v %}
+            {{ k }} = {{ va }}
+{% endfor %}
+{% else %}
+            {{ k }} = {{ v }}
+{% endif %}
+{% endfor %}
+        }
+{% elif val is iterable and not val is string %}
+{% for va in val %}
+        {{ ke }} = {{ va }}
+{% endfor %}
+{% else %}
+        {{ ke }} = {{ val }}
+{% endif %}
+{% endfor %}
+    }
+{% elif value is iterable and not value is string %}
+{% for va in value %}
+    {{ key }} = {{ va }}
+{% endfor %}
+{% else %}
+    {{ key }} = {{ value }}
+{% endif %}
+{% endfor %}
+
+[plugins]
+{% for plugin in krb5_conf_plugins %}
+    {{ plugin.name }} = {
+{% for module in plugin.disable | default([]) %}
+        disable = {{ module }}
+{% endfor %}
+{% for module in plugin.enable_only | default([]) %}
+        enable_only = {{ module }}
+{% endfor %}
+{% for module in plugin.module | default([]) %}
+        module = {{ module.name }}:{{ module.path }}
+{% endfor %}
+    }
+{% endfor %}

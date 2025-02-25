@@ -1,0 +1,254 @@
+---
+argument_specs:
+  main:
+    short_description: Configure Kerberos V5 on a host.
+    description:
+      - Configure Kerberos V5 on a host.
+    author: Jaime Jackson-Block
+    options:
+
+      krb5_conf_appdefaults:
+        type: dict
+        description:
+          - Key-value pairs for the appdefaults section.
+          - Values may be additional dictionaries, up to 2 layers of dictionaries.
+          - List values will be listed multiple times for the key and each value.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#appdefaults.
+        default: {}
+
+      krb5_conf_capaths:
+        type: list
+        description:
+          - A list of cross-realm authentication configurations for the capaths section.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#capaths.
+        elements: dict
+        options:
+          client_realm:
+            type: str
+            required: true
+          server_realms:
+            type: list
+            elements: dict
+            options:
+              intermediate_realms:
+                type: list
+                elements: str
+                required: true
+              name:
+                type: str
+                required: true
+        default: []
+
+      krb5_conf_domain_realm:
+        type: list
+        description:
+          - A list of dictionaries mapping domains to realms.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#domain-realm.
+        elements: dict
+        options:
+          domain:
+            type: str
+            required: true
+          realm:
+            type: str
+            required: true
+        default: []
+
+      krb5_conf_file_backup:
+        type: bool
+        description:
+          - Flag indicating if the existing krb5.conf file should be backed up before template changes.
+        default: false
+
+      krb5_conf_file_dest:
+        type: path
+        description:
+          - Destination of the krb5.conf file on the host.
+          - When undefined, defaults to the standard for the OS distribution.
+
+      krb5_conf_file_group:
+        type: str
+        description:
+          - Group for the krb5.conf file on the host.
+          - When undefined, falls back to `krb5_conf_owner`.
+
+      krb5_conf_file_mode:
+        type: str
+        description:
+          - Permissions for the krb5.conf file on the host.
+        default: "0644"
+
+      krb5_conf_file_owner:
+        type: str
+        description:
+          - Owner for the krb5.conf file on the host.
+        default: root
+      
+      krb5_conf_libdefaults:
+        type: dict
+        description:
+          - Key-value pairs for the libdefaults sections.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#libdefaults.
+        options:
+          allow_des3:
+            type: bool
+          allow_rc4:
+            type: bool
+          allow_weak_crypto:
+            type: bool
+          canonicalize:
+            type: bool
+          ccache_type:
+            type: int
+          clockskew:
+            type: int
+          default_ccache_name:
+            type: str
+          default_client_keytab_name:
+            type: str
+          default_keytab_name:
+            type: str
+          default_rcache_name:
+            type: str
+          default_realm:
+            type: str
+          default_tgs_enctypes:
+            type: str
+          default_tkt_enctypes:
+            type: str
+          dns_canonicalize_hostname:
+            type: bool
+          dns_lookup_kdc:
+            type: bool
+          dns_uri_lookup:
+            type: bool
+          enforce_ok_as_delegate:
+            type: bool
+          err_fmt:
+            type: str
+          extra_addresses:
+            type: str
+          forwardable:
+            type: bool
+          ignore_acceptor_hostname:
+            type: bool
+          k5login_authoritative:
+            type: bool
+          k5login_directory:
+            type: path
+          kcm_mach_service:
+            type: str
+          kcm_socket:
+            type: path
+          kdc_default_options:
+            type: str
+          kdc_timesync:
+            type: int
+          noaddresses:
+            type: bool
+          permitted_enctypes:
+            type: str
+          plugin_base_dir:
+            type: path
+          preferred_preauth_types:
+            type: str
+          proxiable:
+            type: bool
+          qualify_shortname:
+            type: str
+          rdns:
+            type: bool
+          realm_try_domains:
+            type: int
+          renew_lifetime:
+            type: str
+          spake_preauth_groups:
+            type: str
+          ticket_lifetime:
+            type: str
+          udp_preference_limit:
+            type: int
+          verify_ap_req_nofail:
+            type: bool
+          client_aware_channel_bindings:
+            type: bool
+        default: {}
+
+      krb5_conf_plugins:
+        type: list
+        description:
+          - A list of pluggable interface configurations for the plugins section.
+          - The pluggable interface is identified by the `name` key; all other keys are plugin options.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#plugins.
+        options:
+          disable:
+            type: list
+            description:
+              - A list of modules to disable.
+            elements: str
+          enable_only:
+            type: list
+            description:
+              - A list of the only modules to enable.
+            elements: str
+          module:
+            type: list
+            description:
+              - A list mapping dynamic module names to paths.
+            elements: dict
+            options:
+              name:
+                type: str
+                description:
+                  - The dynamic module name.
+                required: true
+              path:
+                type: path
+                description:
+                  - The path to a shared object for the dynamic module.
+                required: true
+          name:
+            type: str
+            description:
+              - The name of the pluggable interface.
+            required: true
+        default: []
+
+      krb5_conf_realms:
+        type: list
+        description:
+          - A list of realm configurations for the realms section.
+          - The realm is identified by the `name` key; all other keys are realm options.
+          - See `man krb5.conf` or https://web.mit.edu/kerberos/krb5-latest/doc/admin/conf_files/krb5_conf.html#realms.
+        elements: dict
+        options:
+          admin_server:
+            type: str
+          auth_to_local:
+            type: list
+            elements: str
+          auth_to_local_names:
+            type: dict
+          default_domain:
+            type: str
+          disable_encrypted_timestamp:
+            type: bool
+          http_anchors:
+            type: path
+          kdc:
+            type: str
+          kpasswd_server:
+            type: str
+          master_kdc:
+            type: str
+          name:
+            type: str
+            required: true
+          primary_kdc:
+            type: str
+          v4_instance_convert:
+            type: dict
+          v4_realm:
+            type: str          
+        default: []
+...
