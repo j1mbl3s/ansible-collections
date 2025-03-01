@@ -1,0 +1,4 @@
+---
+- name: Include Debian init tasks (Ubuntu)
+  ansible.builtin.include_tasks: ../Debian/main.yaml
+...

@@ -1,0 +1,9 @@
+---
+- name: Install `krb5-user` apt package
+  loop:
+    - name: krb5-user
+      version: "{{ krb5_version }}"
+  ansible.builtin.apt:
+    name: "{{ item.name }}{% if item.version != 'latest' %}{{ item.version }}{% endif %}"
+    state: "{% if item.version == 'latest' %}latest{% else %}present{% endif %}"
+...

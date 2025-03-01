@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: krb5_conf
+...

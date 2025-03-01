@@ -1,0 +1,14 @@
+---
+argument_specs:
+  main:
+    short_description: Install Kerberos V5 client libraries and utilities on a host.
+    author: Jaime Jackson-Block
+    options:
+    
+      krb5_version:
+        type: str
+        description:
+          - Version specifier for the krb5 client package.
+          - May be empty, "latest", or a version in `apt` format (e.g. "=1.0", ">=1.0", etc.).
+        default: ""
+...

@@ -1,0 +1,4 @@
+---
+- name: Include init distribution tasks
+  ansible.builtin.include_tasks: "{{ ansible_facts.distribution }}/main.yaml"
+...
